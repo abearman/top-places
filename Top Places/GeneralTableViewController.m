@@ -7,6 +7,7 @@
 //
 
 #import "GeneralTableViewController.h"
+#import "FlickrFetcher.h"
 
 @interface GeneralTableViewController ()
 
@@ -14,30 +15,25 @@
 
 @implementation GeneralTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)downloadFlickrData {
+    FlickrFetcher *ff = [[FlickrFetcher alloc] init];
+    NSURL *url = [[ff class] URLforTopPlaces];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSArray *places = [results valueForKeyPath:@"places.place"];
+    
+    for (NSDictionary *place in places) {
+        NSString *title = [place objectForKey:@"woe_name"];
+        NSString *subtitle = [place objectForKey:@"_content"];
+        NSRange range = [subtitle rangeOfString:@","];
+        subtitle = [subtitle substringFromIndex:range.location + 2]; // Cuts out the title, comma, and space
+    }
 }
 
 #pragma mark - Table view data source

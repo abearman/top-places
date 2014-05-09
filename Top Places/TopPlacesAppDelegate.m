@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Amy Bearman. All rights reserved.
 //
 
-#import "Top_PlacesAppDelegate.h"
+#import "TopPlacesAppDelegate.h"
 
 @implementation Top_PlacesAppDelegate
 

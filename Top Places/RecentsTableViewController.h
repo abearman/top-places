@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GeneralTableViewController.h"
 
-@interface RecentsTableViewController : UITableViewController
+@interface RecentsTableViewController : GeneralTableViewController
 
 @end

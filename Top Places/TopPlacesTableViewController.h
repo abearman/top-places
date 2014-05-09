@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GeneralTableViewController.h"
 
-@interface TopPlacesTableViewController : UITableViewController
+@interface TopPlacesTableViewController : GeneralTableViewController
 
 @end

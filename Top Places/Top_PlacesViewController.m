@@ -7,6 +7,7 @@
 //
 
 #import "Top_PlacesViewController.h"
+#import "FlickrFetcher.h"
 
 @interface Top_PlacesViewController ()
 
@@ -14,16 +15,19 @@
 
 @implementation Top_PlacesViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    FlickrFetcher *ff = [[FlickrFetcher alloc] init];
+    NSURL *url = [[ff class] URLforTopPlaces];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSDictionary *places = [results valueForKeyPath:@"places.place"];
+    
+    for (id key in places) {
+        id value = [places objectForKey:key];
+    }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end

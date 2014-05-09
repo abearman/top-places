@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Top_PlacesAppDelegate.h"
+#import "TopPlacesAppDelegate.h"
 
 int main(int argc, char * argv[])
 {

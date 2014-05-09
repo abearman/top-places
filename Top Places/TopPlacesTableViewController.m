@@ -7,53 +7,75 @@
 //
 
 #import "TopPlacesTableViewController.h"
+#import "FlickrFetcher.h"
 
 @interface TopPlacesTableViewController ()
+@property (nonatomic, strong) NSMutableDictionary *countryToPlace;
 
 @end
 
 @implementation TopPlacesTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    NSThread *thread = [[NSThread alloc] initWithTarget:self
+                                               selector:@selector(downloadFlickrData)
+                                                 object:nil];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [thread start];
+    
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (NSMutableDictionary *)countryToPlace {
+    if (!_countryToPlace) {
+        _countryToPlace = [[NSMutableDictionary alloc] init];
+    }
+    return _countryToPlace;
+}
+
+- (void)downloadFlickrData {
+    FlickrFetcher *ff = [[FlickrFetcher alloc] init];
+    NSURL *url = [[ff class] URLforTopPlaces];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSArray *places = [results valueForKeyPath:@"places.place"];
+    
+    for (NSDictionary *place in places) {
+        NSString *title = [place objectForKey:@"woe_name"];
+        NSString *subtitle = [place objectForKey:@"_content"];
+        NSRange rangeForSubtitle = [subtitle rangeOfString:@", "];
+        subtitle = [subtitle substringFromIndex:rangeForSubtitle.location + 1]; // Cuts out the title, comma, and space
+        NSRange rangeForCountry = [subtitle rangeOfString:@", " options:NSBackwardsSearch];
+        NSString *country = [subtitle substringFromIndex:rangeForCountry.location + 1];
+        
+        NSDictionary *place = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               title, @"title",
+                               subtitle, @"subtitle",
+                               nil];
+        
+        NSMutableArray *currentPlacesForCountry = [self.countryToPlace objectForKey:country];
+        if (currentPlacesForCountry == nil) {
+            currentPlacesForCountry = [[NSMutableArray alloc] initWithObjects:place, nil];
+        } else {
+            [currentPlacesForCountry addObject:place];
+        }
+        [self.countryToPlace setObject:currentPlacesForCountry forKey:country];
+    }
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [[self.countryToPlace allKeys] count];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+// Sections (countries) are sorted alphabetically
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSArray *countries = [self.countryToPlace allKeys];
+    NSArray *sortedCountries = [countries sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    NSString *key = [sortedCountries objectAtIndex:section];
+    return [[self.countryToPlace objectForKey:key] count];
 }
 
 /*
