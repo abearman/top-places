@@ -18,12 +18,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout=UIRectEdgeNone;
     
-    NSThread *thread = [[NSThread alloc] initWithTarget:self
+    /*NSThread *thread = [[NSThread alloc] initWithTarget:self
                                                selector:@selector(downloadFlickrData)
                                                  object:nil];
     
-    [thread start];
+    [thread start];*/
+    [self downloadFlickrData];
     
 }
 
@@ -43,11 +45,14 @@
     
     for (NSDictionary *place in places) {
         NSString *title = [place objectForKey:@"woe_name"];
-        NSString *subtitle = [place objectForKey:@"_content"];
-        NSRange rangeForSubtitle = [subtitle rangeOfString:@", "];
-        subtitle = [subtitle substringFromIndex:rangeForSubtitle.location + 1]; // Cuts out the title, comma, and space
-        NSRange rangeForCountry = [subtitle rangeOfString:@", " options:NSBackwardsSearch];
-        NSString *country = [subtitle substringFromIndex:rangeForCountry.location + 1];
+        NSString *content = [place objectForKey:@"_content"];
+        
+        NSRange rangeForCountry = [content rangeOfString:@", " options:NSBackwardsSearch];
+        NSString *country = [content substringFromIndex:rangeForCountry.location + 1];
+        
+        NSRange rangeForSubtitle = [content rangeOfString:@", "];
+        NSString *subtitle = [content substringFromIndex:rangeForSubtitle.location + 1]; // Cuts out the title, comma, and space
+        
         
         NSDictionary *place = [[NSDictionary alloc] initWithObjectsAndKeys:
                                title, @"title",
@@ -72,70 +77,41 @@
 
 // Sections (countries) are sorted alphabetically
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray *countries = [self.countryToPlace allKeys];
-    NSArray *sortedCountries = [countries sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    NSArray *sortedCountries = [self sortedCountryKeys];
     NSString *key = [sortedCountries objectAtIndex:section];
     return [[self.countryToPlace objectForKey:key] count];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+- (NSArray *)sortedCountryKeys {
+    NSArray *countries = [self.countryToPlace allKeys];
+    return [countries sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
     
-    // Configure the cell...
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    NSString *country = [[self sortedCountryKeys] objectAtIndex:indexPath.section];
+    NSArray *places = [self.countryToPlace objectForKey:country];
+    NSDictionary *place = [places objectAtIndex:indexPath.row];
+    NSString *title = [place objectForKey:@"title"];
+    NSString *subtitle = [place objectForKey:@"subtitle"];
+    
+    cell.textLabel.text = title;
+    cell.detailTextLabel.text = subtitle;
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSArray *sortedCountries = [self sortedCountryKeys];
+    return [sortedCountries objectAtIndex:section];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

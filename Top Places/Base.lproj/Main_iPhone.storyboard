@@ -26,14 +26,15 @@
         <!--Top Places Table View Controller - Top Places-->
         <scene sceneID="d3z-DV-ocD">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3hk-Hl-RU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Top Places" id="1S0-ng-xOJ" customClass="TopPlacesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="XmG-t2-JgR">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="XmG-t2-JgR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3VJ-Uc-tsk">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="55" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3VJ-Uc-tsk" id="ASB-Dx-CJP">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -48,13 +49,13 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Top Places" id="eqG-IS-maK"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3hk-Hl-RU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="825" y="-835"/>
         </scene>
         <!--Recents Table View Controller - Recents-->
         <scene sceneID="qw2-FH-DW1">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Sh-fa-5O0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Recents" id="4xI-qx-1RN" customClass="RecentsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="0w9-er-TMg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -77,7 +78,6 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Recents" id="I54-r0-gTV"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3Sh-fa-5O0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="825" y="-174"/>
         </scene>
