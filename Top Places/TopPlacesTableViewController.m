@@ -151,7 +151,7 @@
     
     FlickrFetcher *ff = [[FlickrFetcher alloc] init];
     NSURL *url = [[ff class] URLforPhotosInPlace:placeId maxResults:PHOTOS_PER_PLACE];
-    [self.spinner startAnimating];
+   [ptvc.spinner startAnimating];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];

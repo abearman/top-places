@@ -10,4 +10,5 @@
 #import "PhotoListTableViewController.h"
 
 @interface PlaceTableViewController : PhotoListTableViewController
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @end
