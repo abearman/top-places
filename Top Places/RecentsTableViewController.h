@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GeneralTableViewController.h"
+#import "PhotoListTableViewController.h"
 
-@interface RecentsTableViewController : UITableViewController
-@property (nonatomic, strong) NSArray *photos;
+@interface RecentsTableViewController : PhotoListTableViewController
 @end

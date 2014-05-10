@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PhotoListTableViewController.h"
 
-@interface PlaceTableViewController : UITableViewController
-@property (nonatomic, strong) NSArray *photos;
+@interface PlaceTableViewController : PhotoListTableViewController
 @end
