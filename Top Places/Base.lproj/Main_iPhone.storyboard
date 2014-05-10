@@ -146,7 +146,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="jEq-Sj-ua8"/>
                     <connections>
-                        <outlet property="spinner" destination="Beh-Su-Fb0" id="i0F-sw-yIM"/>
+                        <outlet property="spinner" destination="Beh-Su-Fb0" id="WFy-gN-qdk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iat-0A-ANa" userLabel="First Responder" sceneMemberID="firstResponder"/>
