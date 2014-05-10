@@ -39,10 +39,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
+   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Photo" forIndexPath:indexPath];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Photo"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -55,8 +55,10 @@
         cell.detailTextLabel.text = description;
     } else if (([title length] > 0) && ([description length] == 0)) {
         cell.textLabel.text = title;
+        cell.detailTextLabel.text = @"";
     } else if (([title length] == 0) && ([description length] > 0)) {
         cell.textLabel.text = description;
+        cell.detailTextLabel.text = @"";
     } else {
         cell.textLabel.text = @"Unknown";
     }
@@ -77,8 +79,7 @@
 }
 
 - (void)addPhotoToListOfRecents {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *recentPhotos = [defaults objectForKey:@"recentPhotos"];
+    NSMutableArray *recentPhotos = [[NSUserDefaults standardUserDefaults] objectForKey:@"recentPhotos"];
     if (recentPhotos == nil) {
         recentPhotos = [[NSMutableArray alloc] init];
         [recentPhotos addObject:self.photo];
@@ -86,7 +87,9 @@
         recentPhotos = [[NSMutableArray alloc] initWithArray:recentPhotos];
         [recentPhotos addObject:self.photo];
     }
-    [defaults setObject:recentPhotos forKey:@"recentPhotos"];
+    [[NSUserDefaults standardUserDefaults] setObject:recentPhotos forKey:@"recentPhotos"];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; // just testing code
+    NSArray *recents = [defaults objectForKey:@"recentPhotos"];
 }
 
 #pragma mark - Navigation

@@ -17,8 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
-    self.photos = [defaults objectForKey:@"recentPhotos"];
+    self.photos = [[NSUserDefaults standardUserDefaults] objectForKey:@"recentPhotos"];
 }
 
 @end

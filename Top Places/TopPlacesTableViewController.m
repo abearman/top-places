@@ -108,10 +108,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Place" forIndexPath:indexPath];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Place"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -140,10 +140,7 @@
     NSData *data = [NSData dataWithContentsOfURL:url];
     NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
-    
-    for (NSDictionary *photo in photos) {
-        [self.photosForSelectedPlace addObject:photo];
-    }
+    [self.photosForSelectedPlace addObjectsFromArray:photos];
     
     [self performSegueWithIdentifier:@"DisplayPlace" sender:self];
 }
