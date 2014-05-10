@@ -22,15 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout=UIRectEdgeNone;
-    
-    /*NSThread *thread = [[NSThread alloc] initWithTarget:self
-                                               selector:@selector(downloadFlickrData)
-                                                 object:nil];
-    
-    [thread start];*/
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self downloadFlickrData];
-    
 }
 
 - (NSMutableDictionary *)countryToPlace {
@@ -141,23 +134,20 @@
     NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
     [self.photosForSelectedPlace addObjectsFromArray:photos];
-    
-    [self performSegueWithIdentifier:@"DisplayPlace" sender:self];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *country = [[self sortedCountryKeys] objectAtIndex:indexPath.section];
-    NSArray *places = [self.countryToPlace objectForKey:country];
-    NSDictionary *place = [places objectAtIndex:indexPath.row];
-    NSString *placeId = [place objectForKey:@"placeId"];
-    
-    [self downloadFlickrDataForPlace: placeId];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    
+    NSString *country = [[self sortedCountryKeys] objectAtIndex:indexPath.section];
+    NSArray *places = [self.countryToPlace objectForKey:country];
+    NSDictionary *place = [places objectAtIndex:indexPath.row];
+    NSString *placeId = [place objectForKey:@"placeId"];
+
+    [self downloadFlickrDataForPlace: placeId];
+    
     PlaceTableViewController *ptvc = [segue destinationViewController];
     ptvc.photos = self.photosForSelectedPlace;
 }

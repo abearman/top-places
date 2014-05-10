@@ -30,16 +30,12 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.photos count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Photo" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Photo" forIndexPath:indexPath];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Photo"];
@@ -69,13 +65,6 @@
 - (void) downloadImageForPhoto: (NSDictionary *)photo {
     FlickrFetcher *ff = [[FlickrFetcher alloc] init];
     self.imageURL = [[ff class] URLforPhoto:photo format:FlickrPhotoFormatLarge];
-    [self performSegueWithIdentifier:@"DisplayPhoto" sender:self];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.photo = [self.photos objectAtIndex:indexPath.row];
-    [self downloadImageForPhoto: self.photo];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)addPhotoToListOfRecents {
@@ -85,20 +74,28 @@
         [recentPhotos addObject:self.photo];
     } else {
         recentPhotos = [[NSMutableArray alloc] initWithArray:recentPhotos];
-        [recentPhotos addObject:self.photo];
+        if (![recentPhotos containsObject:self.photo]) {
+            [recentPhotos addObject:self.photo];
+        }
     }
     [[NSUserDefaults standardUserDefaults] setObject:recentPhotos forKey:@"recentPhotos"];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; // just testing code
-    NSArray *recents = [defaults objectForKey:@"recentPhotos"];
 }
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    self.photo = [self.photos objectAtIndex:indexPath.row];
+    [self downloadImageForPhoto:self.photo];
+    
     PhotoViewController *pvc = [segue destinationViewController];
     pvc.imageURL = self.imageURL;
     pvc.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
     [self addPhotoToListOfRecents];
 }
+
+
+
+
 
 @end

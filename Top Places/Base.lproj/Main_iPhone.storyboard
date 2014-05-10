@@ -50,11 +50,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Place" textLabel="JDm-hU-CyS" detailTextLabel="Lcx-TZ-ZKB" style="IBUITableViewCellStyleSubtitle" id="3VJ-Uc-tsk">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Place" textLabel="JDm-hU-CyS" detailTextLabel="Lcx-TZ-ZKB" style="IBUITableViewCellStyleSubtitle" id="3VJ-Uc-tsk">
                                 <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3VJ-Uc-tsk" id="ASB-Dx-CJP">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JDm-hU-CyS">
@@ -73,6 +73,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="d5M-uq-VcH" kind="push" identifier="DisplayPlace" id="zFo-0U-jFx"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -82,9 +85,6 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Top Places" id="eqG-IS-maK"/>
                     <navigationItem key="navigationItem" id="d3Y-ux-oQI"/>
-                    <connections>
-                        <segue destination="d5M-uq-VcH" kind="push" identifier="DisplayPlace" id="yrM-Pu-3QK"/>
-                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="825" y="-835"/>
@@ -98,11 +98,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="Hca-Ht-l0G" detailTextLabel="1P7-0x-qMY" style="IBUITableViewCellStyleSubtitle" id="pso-H1-bVC">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="Hca-Ht-l0G" detailTextLabel="1P7-0x-qMY" style="IBUITableViewCellStyleSubtitle" id="pso-H1-bVC">
                                 <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pso-H1-bVC" id="VU7-GR-xue">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hca-Ht-l0G">
@@ -121,6 +121,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="WYe-4W-JsS" kind="push" identifier="DisplayPhoto" id="7BG-NC-nuk"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -129,9 +132,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="jEq-Sj-ua8"/>
-                    <connections>
-                        <segue destination="WYe-4W-JsS" kind="push" identifier="DisplayPhoto" id="5ph-62-2NB"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iat-0A-ANa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -197,11 +197,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="2gk-ic-EgZ" detailTextLabel="1Og-4d-AV4" style="IBUITableViewCellStyleSubtitle" id="SJc-5M-Bf7">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="2gk-ic-EgZ" detailTextLabel="1Og-4d-AV4" style="IBUITableViewCellStyleSubtitle" id="SJc-5M-Bf7">
                                 <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SJc-5M-Bf7" id="V9n-7c-hW7">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2gk-ic-EgZ">
@@ -220,6 +220,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="WYe-4W-JsS" kind="push" identifier="DisplayPhoto" id="2b4-ff-ael"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -229,12 +232,9 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Recents" id="I54-r0-gTV"/>
                     <navigationItem key="navigationItem" id="AWq-Z4-7fd"/>
-                    <connections>
-                        <segue destination="WYe-4W-JsS" kind="push" identifier="DisplayPhoto" id="PU9-M2-tr4"/>
-                    </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="825" y="-58"/>
+            <point key="canvasLocation" x="1455" y="-88"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -243,6 +243,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="PU9-M2-tr4"/>
+        <segue reference="2b4-ff-ael"/>
     </inferredMetricsTieBreakers>
 </document>
