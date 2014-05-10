@@ -21,34 +21,13 @@
     
 }
 
-- (void)downloadFlickrData {
-    FlickrFetcher *ff = [[FlickrFetcher alloc] init];
-    NSURL *url = [[ff class] URLforTopPlaces];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSArray *places = [results valueForKeyPath:@"places.place"];
-    
-    for (NSDictionary *place in places) {
-        NSString *title = [place objectForKey:@"woe_name"];
-        NSString *subtitle = [place objectForKey:@"_content"];
-        NSRange range = [subtitle rangeOfString:@","];
-        subtitle = [subtitle substringFromIndex:range.location + 2]; // Cuts out the title, comma, and space
-    }
-}
-
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 0;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 0;
 }
 

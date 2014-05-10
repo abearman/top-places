@@ -1,5 +1,5 @@
 //
-//  TopPlacesTableViewController.h
+//  PlaceTableViewController.h
 //  Top Places
 //
 //  Created by Amy Bearman on 5/9/14.
@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GeneralTableViewController.h"
 
-@interface TopPlacesTableViewController : UITableViewController
-
+@interface PlaceTableViewController : UITableViewController
+@property (nonatomic, strong) NSArray *photos;
 @end

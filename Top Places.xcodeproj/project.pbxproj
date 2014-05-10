@@ -24,7 +24,7 @@
 		6582C5A2191D764600CD6180 /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 6582C5A1191D764600CD6180 /* FlickrFetcher.m */; };
 		6582C5AB191D815500CD6180 /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6582C5AA191D815500CD6180 /* TopPlacesTableViewController.m */; };
 		6582C5AE191D816200CD6180 /* RecentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6582C5AD191D816200CD6180 /* RecentsTableViewController.m */; };
-		6582C5B1191D821000CD6180 /* GeneralTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6582C5B0191D821000CD6180 /* GeneralTableViewController.m */; };
+		6582C5B4191DDFB000CD6180 /* PlaceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6582C5B3191DDFB000CD6180 /* PlaceTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +63,8 @@
 		6582C5AA191D815500CD6180 /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
 		6582C5AC191D816200CD6180 /* RecentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsTableViewController.h; sourceTree = "<group>"; };
 		6582C5AD191D816200CD6180 /* RecentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentsTableViewController.m; sourceTree = "<group>"; };
-		6582C5AF191D821000CD6180 /* GeneralTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralTableViewController.h; sourceTree = "<group>"; };
-		6582C5B0191D821000CD6180 /* GeneralTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralTableViewController.m; sourceTree = "<group>"; };
+		6582C5B2191DDFB000CD6180 /* PlaceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceTableViewController.h; sourceTree = "<group>"; };
+		6582C5B3191DDFB000CD6180 /* PlaceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,8 +171,8 @@
 				6582C5AA191D815500CD6180 /* TopPlacesTableViewController.m */,
 				6582C5AC191D816200CD6180 /* RecentsTableViewController.h */,
 				6582C5AD191D816200CD6180 /* RecentsTableViewController.m */,
-				6582C5AF191D821000CD6180 /* GeneralTableViewController.h */,
-				6582C5B0191D821000CD6180 /* GeneralTableViewController.m */,
+				6582C5B2191DDFB000CD6180 /* PlaceTableViewController.h */,
+				6582C5B3191DDFB000CD6180 /* PlaceTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -296,9 +296,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6582C5AB191D815500CD6180 /* TopPlacesTableViewController.m in Sources */,
+				6582C5B4191DDFB000CD6180 /* PlaceTableViewController.m in Sources */,
 				6582C5AE191D816200CD6180 /* RecentsTableViewController.m in Sources */,
 				6582C575191D752A00CD6180 /* TopPlacesAppDelegate.m in Sources */,
-				6582C5B1191D821000CD6180 /* GeneralTableViewController.m in Sources */,
 				6582C5A2191D764600CD6180 /* FlickrFetcher.m in Sources */,
 				6582C571191D752A00CD6180 /* main.m in Sources */,
 			);

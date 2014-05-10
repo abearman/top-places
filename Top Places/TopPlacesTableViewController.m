@@ -8,9 +8,13 @@
 
 #import "TopPlacesTableViewController.h"
 #import "FlickrFetcher.h"
+#import "PlaceTableViewController.h"
+
+#define PHOTOS_PER_PLACE 50
 
 @interface TopPlacesTableViewController ()
 @property (nonatomic, strong) NSMutableDictionary *countryToPlace;
+@property (nonatomic, strong) NSMutableArray *photosForSelectedPlace;
 
 @end
 
@@ -36,16 +40,23 @@
     return _countryToPlace;
 }
 
+- (NSMutableArray *)photosForSelectedPlace {
+    if (!_photosForSelectedPlace) {
+        _photosForSelectedPlace = [[NSMutableArray alloc] init];
+    }
+    return _photosForSelectedPlace;
+}
+
 - (void)downloadFlickrData {
     FlickrFetcher *ff = [[FlickrFetcher alloc] init];
     NSURL *url = [[ff class] URLforTopPlaces];
     NSData *data = [NSData dataWithContentsOfURL:url];
     NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSArray *places = [results valueForKeyPath:@"places.place"];
+    NSArray *places = [results valueForKeyPath:FLICKR_RESULTS_PLACES];
     
     for (NSDictionary *place in places) {
         NSString *title = [place objectForKey:@"woe_name"];
-        NSString *content = [place objectForKey:@"_content"];
+        NSString *content = [place objectForKey:FLICKR_PLACE_NAME];
         
         NSRange rangeForCountry = [content rangeOfString:@", " options:NSBackwardsSearch];
         NSString *country = [content substringFromIndex:rangeForCountry.location + 1];
@@ -53,10 +64,12 @@
         NSRange rangeForSubtitle = [content rangeOfString:@", "];
         NSString *subtitle = [content substringFromIndex:rangeForSubtitle.location + 1]; // Cuts out the title, comma, and space
         
+        NSString *placeId = [place objectForKey:FLICKR_PHOTO_PLACE_ID];
         
         NSDictionary *place = [[NSDictionary alloc] initWithObjectsAndKeys:
                                title, @"title",
                                subtitle, @"subtitle",
+                               placeId, @"placeId",
                                nil];
         
         NSMutableArray *currentPlacesForCountry = [self.countryToPlace objectForKey:country];
@@ -66,6 +79,7 @@
             [currentPlacesForCountry addObject:place];
         }
         
+        // Sort places in each country section by name, ascending order
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
         NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
         NSArray *sortedArray = [currentPlacesForCountry sortedArrayUsingDescriptors:sortDescriptors];
@@ -94,7 +108,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
     
     if (cell == nil) {
@@ -119,5 +132,50 @@
     return [sortedCountries objectAtIndex:section];
 }
 
+- (void) downloadFlickrDataForPlace: (NSString *)placeId {
+    [self.photosForSelectedPlace removeAllObjects];
+    
+    FlickrFetcher *ff = [[FlickrFetcher alloc] init];
+    NSURL *url = [[ff class] URLforPhotosInPlace:placeId maxResults:PHOTOS_PER_PLACE];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+    
+    for (NSDictionary *photo in photos) {
+        NSString *title = [photo objectForKey:FLICKR_PHOTO_TITLE];
+        NSDictionary *description = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+        
+        NSDictionary *titleDescriptPair = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               title, @"title",
+                               description, @"description",
+                               nil];
+        
+        [self.photosForSelectedPlace addObject:titleDescriptPair];
+    }
+    
+    [self performSegueWithIdentifier:@"DisplayPlace" sender:self];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *country = [[self sortedCountryKeys] objectAtIndex:indexPath.section];
+    NSArray *places = [self.countryToPlace objectForKey:country];
+    NSDictionary *place = [places objectAtIndex:indexPath.row];
+    NSString *placeId = [place objectForKey:@"placeId"];
+    
+    [self downloadFlickrDataForPlace: placeId];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    PlaceTableViewController *ptvc = [segue destinationViewController];
+    ptvc.photos = self.photosForSelectedPlace;
+}
 
 @end
+
+
+
+
+
+
+

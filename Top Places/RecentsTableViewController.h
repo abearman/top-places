@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "GeneralTableViewController.h"
 
-@interface RecentsTableViewController : GeneralTableViewController
+@interface RecentsTableViewController : UITableViewController
 
 @end
