@@ -49,6 +49,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" id="VSu-0f-dNc">
+                            <rect key="frame" x="0.0" y="173" width="320" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Place" textLabel="JDm-hU-CyS" detailTextLabel="Lcx-TZ-ZKB" style="IBUITableViewCellStyleSubtitle" id="3VJ-Uc-tsk">
                                 <rect key="frame" x="0.0" y="119" width="320" height="44"/>
@@ -85,6 +89,9 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Top Places" id="eqG-IS-maK"/>
                     <navigationItem key="navigationItem" id="d3Y-ux-oQI"/>
+                    <connections>
+                        <outlet property="spinner" destination="VSu-0f-dNc" id="Wxy-Gz-dUb"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="825" y="-835"/>
