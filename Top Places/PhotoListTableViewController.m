@@ -68,15 +68,21 @@
 }
 
 - (void)addPhotoToListOfRecents {
-    NSMutableArray *recentPhotos = [[NSUserDefaults standardUserDefaults] objectForKey:@"recentPhotos"];
+    NSArray *recentPhotos = [[NSUserDefaults standardUserDefaults] objectForKey:@"recentPhotos"];
+    
     if (recentPhotos == nil) {
-        recentPhotos = [[NSMutableArray alloc] init];
-        [recentPhotos addObject:self.photo];
+        recentPhotos = [[NSArray alloc] initWithObjects:self.photo, nil];
     } else {
-        recentPhotos = [[NSMutableArray alloc] initWithArray:recentPhotos];
-        if (![recentPhotos containsObject:self.photo]) {
-            [recentPhotos addObject:self.photo];
+        NSMutableArray *recentPhotosMutable = [recentPhotos mutableCopy];
+        if ([recentPhotosMutable containsObject:self.photo]) { // Move it to the front
+            [recentPhotosMutable removeObject:self.photo];
         }
+        [recentPhotosMutable insertObject:self.photo atIndex:0];
+        if ([recentPhotosMutable count] > 20) {
+            [recentPhotosMutable removeLastObject];
+        }
+        
+        recentPhotos = recentPhotosMutable;
     }
     [[NSUserDefaults standardUserDefaults] setObject:recentPhotos forKey:@"recentPhotos"];
 }
