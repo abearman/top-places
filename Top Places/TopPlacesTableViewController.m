@@ -26,15 +26,6 @@
     [self downloadFlickrData];
 }
 
-- (void)resetDefaults {
-    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-    NSDictionary * dict = [defs dictionaryRepresentation];
-    for (id key in dict) {
-        [defs removeObjectForKey:key];
-    }
-    [defs synchronize];
-}
-
 - (NSMutableDictionary *)countryToPlace {
     if (!_countryToPlace) {
         _countryToPlace = [[NSMutableDictionary alloc] init];

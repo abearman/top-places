@@ -74,7 +74,7 @@
         recentPhotos = [[NSArray alloc] initWithObjects:self.photo, nil];
     } else {
         NSMutableArray *recentPhotosMutable = [recentPhotos mutableCopy];
-        if ([recentPhotosMutable containsObject:self.photo]) { // Move it to the front
+        if ([recentPhotosMutable containsObject:self.photo]) {
             [recentPhotosMutable removeObject:self.photo];
         }
         [recentPhotosMutable insertObject:self.photo atIndex:0];
