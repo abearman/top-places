@@ -146,15 +146,35 @@
     return [sortedCountries objectAtIndex:section];
 }
 
-- (void) downloadFlickrDataForPlace: (NSString *)placeId {
+- (void) downloadFlickrDataForPlace:(NSString *)placeId withController:(PlaceTableViewController *)ptvc {
     [self.photosForSelectedPlace removeAllObjects];
     
     FlickrFetcher *ff = [[FlickrFetcher alloc] init];
     NSURL *url = [[ff class] URLforPhotosInPlace:placeId maxResults:PHOTOS_PER_PLACE];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
-    [self.photosForSelectedPlace addObjectsFromArray:photos];
+    [self.spinner startAnimating];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
+        completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
+            if (!error) {
+                if ([request.URL isEqual:url]) {
+                    NSData *data = [NSData dataWithContentsOfURL:localfile];
+                    NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                    NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.photosForSelectedPlace addObjectsFromArray:photos];
+                        ptvc.photos = self.photosForSelectedPlace;
+                        [ptvc.tableView reloadData];
+                    });
+                }
+            }
+        }];
+    [task resume];
 }
 
 #pragma mark - Navigation
@@ -166,11 +186,9 @@
     NSArray *places = [self.countryToPlace objectForKey:country];
     NSDictionary *place = [places objectAtIndex:indexPath.row];
     NSString *placeId = [place objectForKey:@"placeId"];
-
-    [self downloadFlickrDataForPlace: placeId];
     
     PlaceTableViewController *ptvc = [segue destinationViewController];
-    ptvc.photos = self.photosForSelectedPlace;
+    [self downloadFlickrDataForPlace:placeId withController:ptvc];
 }
 
 @end
