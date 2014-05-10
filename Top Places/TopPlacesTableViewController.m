@@ -142,15 +142,7 @@
     NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
     
     for (NSDictionary *photo in photos) {
-        NSString *title = [photo objectForKey:FLICKR_PHOTO_TITLE];
-        NSDictionary *description = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-        
-        NSDictionary *titleDescriptPair = [[NSDictionary alloc] initWithObjectsAndKeys:
-                               title, @"title",
-                               description, @"description",
-                               nil];
-        
-        [self.photosForSelectedPlace addObject:titleDescriptPair];
+        [self.photosForSelectedPlace addObject:photo];
     }
     
     [self performSegueWithIdentifier:@"DisplayPlace" sender:self];
@@ -165,6 +157,8 @@
     [self downloadFlickrDataForPlace: placeId];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+#pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     PlaceTableViewController *ptvc = [segue destinationViewController];

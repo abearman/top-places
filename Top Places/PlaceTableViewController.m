@@ -7,15 +7,24 @@
 //
 
 #import "PlaceTableViewController.h"
+#import "FlickrFetcher.h"
+#import "PhotoViewController.h"
 
 @interface PlaceTableViewController ()
-
+@property (nonatomic, strong) NSURL *imageURL;
 @end
 
 @implementation PlaceTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (NSURL *)imageURL {
+    if (!_imageURL) {
+        _imageURL = [[NSURL alloc] init];
+    }
+    return _imageURL;
 }
 
 #pragma mark - Table view data source
@@ -36,10 +45,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    int row = indexPath.row;
-    NSDictionary *photo = [self.photos objectAtIndex:row];
-    NSString *title = [photo objectForKey:@"title"];
-    NSString *description = [photo objectForKey:@"description"];
+    NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
+    NSString *title = [photo objectForKey:FLICKR_PHOTO_TITLE];
+    NSString *description = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
     
     if (([title length] > 0) && ([description length] > 0)) {
         cell.textLabel.text = title;
@@ -53,20 +61,27 @@
     return cell;
 }
 
+- (void) downloadImageForPhoto: (NSDictionary *)photo {
+    FlickrFetcher *ff = [[FlickrFetcher alloc] init];
+    self.imageURL = [[ff class] URLforPhoto:photo format:FlickrPhotoFormatLarge];
+    [self performSegueWithIdentifier:@"DisplayPhoto" sender:self];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
+    [self downloadImageForPhoto: photo];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    PhotoViewController *pvc = [segue destinationViewController];
+    pvc.imageURL = self.imageURL;
 }
-*/
 
 @end
+
+
+
