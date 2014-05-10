@@ -21,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.scrollView addSubview:self.imageView];
+    [self.scrollView setShowsHorizontalScrollIndicator:NO];
+    [self.scrollView setShowsVerticalScrollIndicator:NO];
 }
 
 #pragma mark Properties
