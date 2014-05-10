@@ -15,12 +15,7 @@
 
 @implementation RecentsTableViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
-    NSLog(@"View appeared!");
     self.photos = [[NSUserDefaults standardUserDefaults] objectForKey:@"recentPhotos"];
     [self.tableView reloadData];
 }
