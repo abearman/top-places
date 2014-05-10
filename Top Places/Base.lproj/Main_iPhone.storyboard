@@ -103,7 +103,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iat-0A-ANa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1403" y="-837"/>
+            <point key="canvasLocation" x="1463" y="-813"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="SQy-EN-gEp">
@@ -137,7 +137,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfD-nJ-aHl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1987" y="-835"/>
+            <point key="canvasLocation" x="2111" y="-469"/>
         </scene>
         <!--Navigation Controller - Recents-->
         <scene sceneID="d9U-ht-ENQ">
@@ -181,6 +181,9 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Recents" id="I54-r0-gTV"/>
                     <navigationItem key="navigationItem" id="AWq-Z4-7fd"/>
+                    <connections>
+                        <segue destination="WYe-4W-JsS" kind="push" identifier="DisplayPhoto" id="PU9-M2-tr4"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="825" y="-58"/>
@@ -191,4 +194,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="PU9-M2-tr4"/>
+    </inferredMetricsTieBreakers>
 </document>

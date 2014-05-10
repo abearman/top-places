@@ -10,5 +10,5 @@
 #import "GeneralTableViewController.h"
 
 @interface RecentsTableViewController : UITableViewController
-
+@property (nonatomic, strong) NSArray *photos;
 @end

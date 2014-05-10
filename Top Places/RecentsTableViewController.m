@@ -7,107 +7,97 @@
 //
 
 #import "RecentsTableViewController.h"
+#import "FlickrFetcher.h"
+#import "PhotoViewController.h"
 
 @interface RecentsTableViewController ()
-
+@property (nonatomic, strong) NSURL *imageURL;
+@property (nonatomic, strong) NSDictionary *photo;
 @end
 
 @implementation RecentsTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+    self.photos = [defaults objectForKey:@"recentPhotos"];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (NSURL *)imageURL {
+    if (!_imageURL) {
+        _imageURL = [[NSURL alloc] init];
+    }
+    return _imageURL;
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return [self.photos count];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
     
-    // Configure the cell...
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
+    NSString *title = [photo objectForKey:FLICKR_PHOTO_TITLE];
+    NSString *description = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    
+    if (([title length] > 0) && ([description length] > 0)) {
+        cell.textLabel.text = title;
+        cell.detailTextLabel.text = description;
+    } else if (([title length] > 0) && ([description length] == 0)) {
+        cell.textLabel.text = title;
+    } else if (([title length] == 0) && ([description length] > 0)) {
+        cell.textLabel.text = description;
+    } else {
+        cell.textLabel.text = @"Unknown";
+    }
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void) downloadImageForPhoto: (NSDictionary *)photo {
+    FlickrFetcher *ff = [[FlickrFetcher alloc] init];
+    self.imageURL = [[ff class] URLforPhoto:photo format:FlickrPhotoFormatLarge];
+    [self performSegueWithIdentifier:@"DisplayPhoto" sender:self];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.photo = [self.photos objectAtIndex:indexPath.row];
+    [self downloadImageForPhoto: self.photo];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
+- (void)addPhotoToListOfRecents {
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+    NSMutableArray *recentPhotos = [defaults objectForKey:@"recentPhotos"];
+    if (recentPhotos == nil) {
+        recentPhotos = [[NSMutableArray alloc] init];
+        [recentPhotos addObject:self.photo];
+    } else {
+        recentPhotos = [[NSMutableArray alloc] initWithArray:recentPhotos];
+        [recentPhotos addObject:self.photo];
+    }
+    [defaults setObject:recentPhotos forKey:@"recentPhotos"];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    PhotoViewController *pvc = [segue destinationViewController];
+    pvc.imageURL = self.imageURL;
+    pvc.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
+    [self addPhotoToListOfRecents];
 }
-*/
 
 @end
