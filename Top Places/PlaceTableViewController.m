@@ -12,6 +12,7 @@
 
 @interface PlaceTableViewController ()
 @property (nonatomic, strong) NSURL *imageURL;
+@property (nonatomic, strong) NSString *imageTitle;
 @end
 
 @implementation PlaceTableViewController
@@ -52,7 +53,9 @@
     if (([title length] > 0) && ([description length] > 0)) {
         cell.textLabel.text = title;
         cell.detailTextLabel.text = description;
-    } else if ([description length] > 0) {
+    } else if (([title length] > 0) && ([description length] == 0)) {
+        cell.textLabel.text = title;
+    } else if (([title length] == 0) && ([description length] > 0)) {
         cell.textLabel.text = description;
     } else {
         cell.textLabel.text = @"Unknown";
@@ -64,6 +67,7 @@
 - (void) downloadImageForPhoto: (NSDictionary *)photo {
     FlickrFetcher *ff = [[FlickrFetcher alloc] init];
     self.imageURL = [[ff class] URLforPhoto:photo format:FlickrPhotoFormatLarge];
+    self.imageTitle = [photo objectForKey:FLICKR_PHOTO_TITLE];
     [self performSegueWithIdentifier:@"DisplayPhoto" sender:self];
 }
 
@@ -79,6 +83,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     PhotoViewController *pvc = [segue destinationViewController];
     pvc.imageURL = self.imageURL;
+    pvc.title = self.imageTitle;
 }
 
 @end
