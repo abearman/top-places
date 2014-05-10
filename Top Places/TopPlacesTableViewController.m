@@ -65,6 +65,12 @@
         } else {
             [currentPlacesForCountry addObject:place];
         }
+        
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+        NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+        NSArray *sortedArray = [currentPlacesForCountry sortedArrayUsingDescriptors:sortDescriptors];
+        currentPlacesForCountry =[NSMutableArray arrayWithArray:sortedArray];
+        
         [self.countryToPlace setObject:currentPlacesForCountry forKey:country];
     }
 }
