@@ -88,7 +88,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="kSi-2k-BvW"/>
                     <connections>
-                        <outlet property="spinner" destination="bLh-3g-EuS" id="h24-ph-yiw"/>
+                        <outlet property="spinner" destination="bLh-3g-EuS" id="E8B-45-lg3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Enl-bB-7S9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -144,7 +144,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="RqN-b2-YZB"/>
                     <connections>
-                        <outlet property="spinner" destination="XW8-QL-hMn" id="X8h-Dl-MW0"/>
+                        <outlet property="spinner" destination="XW8-QL-hMn" id="Gt4-o8-w4G"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="whl-Vs-fnL" userLabel="First Responder" sceneMemberID="firstResponder"/>
