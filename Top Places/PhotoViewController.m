@@ -25,6 +25,20 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self scaleImageToScrollView];
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self scaleImageToScrollView];
+}
+
+- (void)scaleImageToScrollView {
+    [self.imageView removeFromSuperview];
+    
+    self.imageView = [[UIImageView alloc] initWithImage:self.image];
+    self.imageView.frame = (CGRect){.origin=CGPointMake(0.0f, 0.0f), .size=self.image.size};
+    [self.scrollView addSubview:self.imageView];
+    self.scrollView.contentSize = self.image.size;
     
     CGRect scrollViewFrame = self.scrollView.frame;
     CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
