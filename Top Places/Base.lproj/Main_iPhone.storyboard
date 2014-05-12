@@ -88,7 +88,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Top Places" id="eqG-IS-maK"/>
-                    <navigationItem key="navigationItem" id="d3Y-ux-oQI"/>
+                    <navigationItem key="navigationItem" title="Top Places" id="d3Y-ux-oQI"/>
                     <connections>
                         <outlet property="spinner" destination="VSu-0f-dNc" id="Wxy-Gz-dUb"/>
                     </connections>
@@ -247,7 +247,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Recents" id="I54-r0-gTV"/>
-                    <navigationItem key="navigationItem" id="AWq-Z4-7fd"/>
+                    <navigationItem key="navigationItem" title="Recents" id="AWq-Z4-7fd"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Sh-fa-5O0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -260,6 +260,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="7BG-NC-nuk"/>
+        <segue reference="2b4-ff-ael"/>
     </inferredMetricsTieBreakers>
 </document>

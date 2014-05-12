@@ -199,6 +199,12 @@
     pltvc.placeId = placeId;
     [pltvc.spinner startAnimating];
     [self downloadFlickrDataForPlace:placeId withController:pltvc];
+    
+    if ([pltvc isKindOfClass: [PlaceTableViewController class]]) {
+        // Set title
+        UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
+        pltvc.title = selectedCell.textLabel.text;
+    }
 }
 
 @end
