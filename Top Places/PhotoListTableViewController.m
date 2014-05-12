@@ -39,6 +39,11 @@
     return _imageURL;
 }
 
+- (void)setPhotos:(NSArray *)photos {
+    _photos = photos;
+    [self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -110,7 +115,6 @@
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         self.photos = photos;
-                        [self.tableView reloadData];
                     });
                 }
             }

@@ -10,5 +10,5 @@
 #import "GeneralTableViewController.h"
 
 @interface TopPlacesTableViewController : UITableViewController
-
+@property (nonatomic, strong) NSMutableDictionary *countryToPlace;
 @end

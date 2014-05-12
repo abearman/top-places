@@ -13,7 +13,6 @@
 #define PHOTOS_PER_PLACE 50
 
 @interface TopPlacesTableViewController ()
-@property (nonatomic, strong) NSMutableDictionary *countryToPlace;
 @property (nonatomic, strong) NSMutableArray *photosForSelectedPlace;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @end
@@ -36,7 +35,7 @@
 }
 
 - (NSMutableDictionary *)countryToPlace {
-    if (!_countryToPlace) {
+   if (!_countryToPlace) {
         _countryToPlace = [[NSMutableDictionary alloc] init];
     }
     return _countryToPlace;
@@ -157,7 +156,7 @@
     return [sortedCountries objectAtIndex:section];
 }
 
-- (void) downloadFlickrDataForPlace:(NSString *)placeId withController:(PhotoListTableViewController *)ptvc {
+- (void) downloadFlickrDataForPlace:(NSString *)placeId withController:(PhotoListTableViewController *)pltvc {
     [self.photosForSelectedPlace removeAllObjects];
     
     FlickrFetcher *ff = [[FlickrFetcher alloc] init];
@@ -177,9 +176,8 @@
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.photosForSelectedPlace addObjectsFromArray:photos];
-                        ptvc.photos = self.photosForSelectedPlace;
-                        [ptvc.tableView reloadData];
-                        [ptvc.spinner stopAnimating];
+                        pltvc.photos = self.photosForSelectedPlace;
+                        [pltvc.spinner stopAnimating];
                     });
                 }
             }
@@ -197,10 +195,10 @@
     NSDictionary *place = [places objectAtIndex:indexPath.row];
     NSString *placeId = [place objectForKey:@"placeId"];
     
-    PhotoListTableViewController *ptvc = [segue destinationViewController];
-    ptvc.placeId = placeId;
-    [ptvc.spinner startAnimating];
-    [self downloadFlickrDataForPlace:placeId withController:ptvc];
+    PhotoListTableViewController *pltvc = [segue destinationViewController];
+    pltvc.placeId = placeId;
+    [pltvc.spinner startAnimating];
+    [self downloadFlickrDataForPlace:placeId withController:pltvc];
 }
 
 @end
