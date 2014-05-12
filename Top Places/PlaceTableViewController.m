@@ -11,6 +11,7 @@
 #import "PhotoViewController.h"
 
 @interface PlaceTableViewController ()
+
 @end
 
 @implementation PlaceTableViewController

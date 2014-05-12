@@ -60,6 +60,7 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self formatFlickrPlacesData: places];
                         [self.tableView reloadData];
+                        [self.spinner stopAnimating];
                     });
                 }
             }
@@ -151,7 +152,6 @@
     
     FlickrFetcher *ff = [[FlickrFetcher alloc] init];
     NSURL *url = [[ff class] URLforPhotosInPlace:placeId maxResults:PHOTOS_PER_PLACE];
-   [ptvc.spinner startAnimating];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
@@ -166,6 +166,7 @@
                     NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [ptvc.spinner startAnimating];
                         [self.photosForSelectedPlace addObjectsFromArray:photos];
                         ptvc.photos = self.photosForSelectedPlace;
                         [ptvc.tableView reloadData];
