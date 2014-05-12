@@ -34,7 +34,7 @@
 
 - (void)scaleImageToScrollView {
     self.imageView.image = self.image;
-    self.scrollView.contentSize = self.image.size;
+    self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
     
     CGRect scrollViewFrame = self.scrollView.frame;
     CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
@@ -73,7 +73,6 @@
     self.scrollView.delegate = self;
     self.scrollView.minimumZoomScale = 0.2;
     self.scrollView.maximumZoomScale = 2.0;
-    self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setShowsVerticalScrollIndicator:NO];
 }
