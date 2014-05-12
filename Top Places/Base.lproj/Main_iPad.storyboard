@@ -131,10 +131,10 @@
             </objects>
             <point key="canvasLocation" x="2588" y="-3278"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Recents Table View Controller-->
         <scene sceneID="ynj-oj-g55">
             <objects>
-                <tableViewController id="o2H-wV-tYH" sceneMemberID="viewController">
+                <tableViewController id="o2H-wV-tYH" customClass="RecentsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="y78-3T-O3g">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
