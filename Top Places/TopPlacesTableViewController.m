@@ -24,6 +24,15 @@
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self downloadFlickrPlaces];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+}
+
+- (void)refreshTable:(UIRefreshControl *)refreshControl {
+    [self downloadFlickrPlaces];
+    [refreshControl endRefreshing];
 }
 
 - (NSMutableDictionary *)countryToPlace {
@@ -58,6 +67,7 @@
                     NSArray *places = [results valueForKeyPath:FLICKR_RESULTS_PLACES];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.countryToPlace removeAllObjects];
                         [self formatFlickrPlacesData: places];
                         [self.tableView reloadData];
                         [self.spinner stopAnimating];
