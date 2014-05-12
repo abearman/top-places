@@ -17,9 +17,19 @@
 @implementation RecentsTableViewController
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self getSavedRecentPhotos];
+}
+
+- (void)getSavedRecentPhotos {
     NSUserDefaultsAccess *nsuda = [[NSUserDefaultsAccess alloc] init];
     self.photos = [nsuda getSavedRecentPhotosArray];
-    [self.tableView reloadData];
 }
+
+- (void)refreshTable:(UIRefreshControl *)refreshControl {
+    [self getSavedRecentPhotos];
+    [refreshControl endRefreshing];
+}
+
 
 @end

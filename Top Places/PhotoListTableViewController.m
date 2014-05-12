@@ -10,8 +10,8 @@
 #import "FlickrFetcher.h"
 #import "PhotoViewController.h"
 #import "NSUserDefaultsAccess.h"
-
-#define PHOTOS_PER_PLACE 50
+#import "PlaceTableViewController.h"
+#import "RecentsTableViewController.h"
 
 @interface PhotoListTableViewController ()
 @property (nonatomic, strong) NSURL *imageURL;
@@ -25,11 +25,6 @@
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
-}
-
-- (void)refreshTable:(UIRefreshControl *)refreshControl {
-    [self downloadFlickrData];
-    [refreshControl endRefreshing];
 }
 
 - (NSURL *)imageURL {
@@ -95,33 +90,6 @@
     [nsuda addPhotoToListOfRecentsWithPhoto:self.photo];
 }
 
-- (void) downloadFlickrData {
-    self.photos = nil;
-    
-    FlickrFetcher *ff = [[FlickrFetcher alloc] init];
-    NSURL *url = [[ff class] URLforPhotosInPlace:self.placeId maxResults:PHOTOS_PER_PLACE];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-    
-    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
-        completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
-            if (!error) {
-                if ([request.URL isEqual:url]) {
-                    NSData *data = [NSData dataWithContentsOfURL:localfile];
-                    NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                    NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        self.photos = photos;
-                    });
-                }
-            }
-        }];
-    [task resume];
-}
-
-
+- (void)refreshTable:(UIRefreshControl *)refreshControl {}
 
 @end
