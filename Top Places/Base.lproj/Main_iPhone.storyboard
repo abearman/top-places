@@ -9,7 +9,7 @@
             <objects>
                 <tabBarController definesPresentationContext="YES" id="Ubx-D8-Jz6" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="4da-b2-k7X"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="FKE-B6-kjf">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -43,7 +43,6 @@
         <!--Top Places Table View Controller - Top Places-->
         <scene sceneID="d3z-DV-ocD">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3hk-Hl-RU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Top Places" id="1S0-ng-xOJ" customClass="TopPlacesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="XmG-t2-JgR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -94,6 +93,7 @@
                         <outlet property="spinner" destination="VSu-0f-dNc" id="Wxy-Gz-dUb"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3hk-Hl-RU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="825" y="-835"/>
         </scene>
@@ -206,7 +206,6 @@
         <!--Recents Table View Controller - Recents-->
         <scene sceneID="qw2-FH-DW1">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3Sh-fa-5O0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Recents" id="4xI-qx-1RN" customClass="RecentsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="0w9-er-TMg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -249,6 +248,7 @@
                     <tabBarItem key="tabBarItem" title="Recents" id="I54-r0-gTV"/>
                     <navigationItem key="navigationItem" id="AWq-Z4-7fd"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Sh-fa-5O0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1455" y="-88"/>
         </scene>
@@ -259,6 +259,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="7BG-NC-nuk"/>
+        <segue reference="2b4-ff-ael"/>
     </inferredMetricsTieBreakers>
 </document>

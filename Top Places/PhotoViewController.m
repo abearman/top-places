@@ -21,8 +21,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.scrollView addSubview:self.imageView];
+    [self zoomImage];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setShowsVerticalScrollIndicator:NO];
+}
+
+- (void)zoomImage {
+    
 }
 
 #pragma mark Properties

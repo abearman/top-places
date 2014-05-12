@@ -62,11 +62,6 @@
     return cell;
 }
 
-- (void) downloadImageForPhoto: (NSDictionary *)photo {
-    FlickrFetcher *ff = [[FlickrFetcher alloc] init];
-    self.imageURL = [[ff class] URLforPhoto:photo format:FlickrPhotoFormatLarge];
-}
-
 - (void)addPhotoToListOfRecents {
     NSArray *recentPhotos = [[NSUserDefaults standardUserDefaults] objectForKey:@"recentPhotos"];
     
@@ -92,7 +87,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     self.photo = [self.photos objectAtIndex:indexPath.row];
-    [self downloadImageForPhoto:self.photo];
+    
+    FlickrFetcher *ff = [[FlickrFetcher alloc] init];
+    self.imageURL = [[ff class] URLforPhoto:self.photo format:FlickrPhotoFormatLarge];
     
     PhotoViewController *pvc = [segue destinationViewController];
     pvc.imageURL = self.imageURL;
