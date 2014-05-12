@@ -33,11 +33,7 @@
 }
 
 - (void)scaleImageToScrollView {
-    [self.imageView removeFromSuperview];
-    
-    self.imageView = [[UIImageView alloc] initWithImage:self.image];
-    self.imageView.frame = (CGRect){.origin=CGPointMake(0.0f, 0.0f), .size=self.image.size};
-    [self.scrollView addSubview:self.imageView];
+    self.imageView.image = self.image;
     self.scrollView.contentSize = self.image.size;
     
     CGRect scrollViewFrame = self.scrollView.frame;
