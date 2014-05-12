@@ -20,15 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.imageView = [[UIImageView alloc] initWithImage:self.image];
-    self.imageView.frame = (CGRect){.origin=CGPointMake(0.0f, 0.0f), .size=self.image.size};
     [self.scrollView addSubview:self.imageView];
-    
-    self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
-    
-    [self.scrollView setShowsHorizontalScrollIndicator:NO];
-    [self.scrollView setShowsVerticalScrollIndicator:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -37,16 +29,7 @@
     CGRect scrollViewFrame = self.scrollView.frame;
     CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
     CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
-    CGFloat minScale = MAX(scaleWidth, scaleHeight);
-    self.scrollView.zoomScale = minScale;
-}
-
-/*- (void)zoomImage { // 3
-    CGRect scrollViewFrame = self.scrollView.frame;
-    CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
-    CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
-    CGFloat minScale = MIN(scaleWidth, scaleHeight);
-    self.scrollView.minimumZoomScale = minScale;
+    self.scrollView.zoomScale = MAX(scaleWidth, scaleHeight);
 }
 
 #pragma mark Properties
@@ -60,17 +43,10 @@
     return self.imageView.image;
 }
 
-- (void)setImage:(UIImage *)image { // 1
+- (void)setImage:(UIImage *)image {
     self.imageView.image = image;
-    
-    self.imageView.frame = (CGRect){.origin=CGPointMake(0.0f, 0.0f), .size=image.size};
-    [self.scrollView addSubview:self.imageView];
-    
-    self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
-
-    //[self.imageView sizeToFit];
-    //self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
-}*/
+    self.imageView.frame = (CGRect){.origin=CGPointMake(0.0f, 0.0f), .size=self.image.size};
+}
 
 #pragma mark Public API
 
@@ -88,6 +64,8 @@
     self.scrollView.minimumZoomScale = 0.2;
     self.scrollView.maximumZoomScale = 2.0;
     self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
+    [self.scrollView setShowsHorizontalScrollIndicator:NO];
+    [self.scrollView setShowsVerticalScrollIndicator:NO];
 }
 
 #pragma mark UIScrollViewDelegate
