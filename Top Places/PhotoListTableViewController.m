@@ -9,6 +9,7 @@
 #import "PhotoListTableViewController.h"
 #import "FlickrFetcher.h"
 #import "PhotoViewController.h"
+#import "NSUserDefaultsAccess.h"
 
 @interface PhotoListTableViewController ()
 @property (nonatomic, strong) NSURL *imageURL;
@@ -62,26 +63,6 @@
     return cell;
 }
 
-- (void)addPhotoToListOfRecents {
-    NSArray *recentPhotos = [[NSUserDefaults standardUserDefaults] objectForKey:@"recentPhotos"];
-    
-    if (recentPhotos == nil) {
-        recentPhotos = [[NSArray alloc] initWithObjects:self.photo, nil];
-    } else {
-        NSMutableArray *recentPhotosMutable = [recentPhotos mutableCopy];
-        if ([recentPhotosMutable containsObject:self.photo]) {
-            [recentPhotosMutable removeObject:self.photo];
-        }
-        [recentPhotosMutable insertObject:self.photo atIndex:0];
-        if ([recentPhotosMutable count] > 20) {
-            [recentPhotosMutable removeLastObject];
-        }
-        
-        recentPhotos = recentPhotosMutable;
-    }
-    [[NSUserDefaults standardUserDefaults] setObject:recentPhotos forKey:@"recentPhotos"];
-}
-
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -94,7 +75,9 @@
     PhotoViewController *pvc = [segue destinationViewController];
     pvc.imageURL = self.imageURL;
     pvc.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
-    [self addPhotoToListOfRecents];
+    
+    NSUserDefaultsAccess *nsuda = [[NSUserDefaultsAccess alloc] init];
+    [nsuda addPhotoToListOfRecentsWithPhoto:self.photo];
 }
 
 
