@@ -157,7 +157,7 @@
     return [sortedCountries objectAtIndex:section];
 }
 
-- (void) downloadFlickrDataForPlace:(NSString *)placeId withController:(PlaceTableViewController *)ptvc {
+- (void) downloadFlickrDataForPlace:(NSString *)placeId withController:(PhotoListTableViewController *)ptvc {
     [self.photosForSelectedPlace removeAllObjects];
     
     FlickrFetcher *ff = [[FlickrFetcher alloc] init];
@@ -176,10 +176,10 @@
                     NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [ptvc.spinner startAnimating];
                         [self.photosForSelectedPlace addObjectsFromArray:photos];
                         ptvc.photos = self.photosForSelectedPlace;
                         [ptvc.tableView reloadData];
+                        [ptvc.spinner stopAnimating];
                     });
                 }
             }
@@ -197,7 +197,9 @@
     NSDictionary *place = [places objectAtIndex:indexPath.row];
     NSString *placeId = [place objectForKey:@"placeId"];
     
-    PlaceTableViewController *ptvc = [segue destinationViewController];
+    PhotoListTableViewController *ptvc = [segue destinationViewController];
+    ptvc.placeId = placeId;
+    [ptvc.spinner startAnimating];
     [self downloadFlickrDataForPlace:placeId withController:ptvc];
 }
 

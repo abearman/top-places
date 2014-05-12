@@ -10,4 +10,6 @@
 
 @interface PhotoListTableViewController : UITableViewController
 @property (nonatomic, strong) NSArray *photos;
+@property (nonatomic, strong) NSString *placeId;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @end
