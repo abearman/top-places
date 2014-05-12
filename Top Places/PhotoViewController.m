@@ -25,21 +25,25 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self scaleImageToScrollView];
-}
-
-- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [self scaleImageToScrollView];
-}
-
-- (void)scaleImageToScrollView {
-    self.imageView.image = self.image;
-    self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
-    
     CGRect scrollViewFrame = self.scrollView.frame;
     CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
     CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
     self.scrollView.zoomScale = MAX(scaleWidth, scaleHeight);
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self scaleImageToScrollViewAnimated];
+}
+
+- (void)scaleImageToScrollViewAnimated {
+    [UIImageView animateWithDuration:0.8 animations:^{
+        self.imageView.image = self.image;
+        self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
+        CGRect scrollViewFrame = self.scrollView.frame;
+        CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
+        CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
+        self.scrollView.zoomScale = MAX(scaleWidth, scaleHeight);
+    }];
 }
 
 #pragma mark Properties
@@ -73,6 +77,7 @@
     self.scrollView.delegate = self;
     self.scrollView.minimumZoomScale = 0.2;
     self.scrollView.maximumZoomScale = 2.0;
+     self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setShowsVerticalScrollIndicator:NO];
 }
