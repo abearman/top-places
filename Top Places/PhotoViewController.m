@@ -83,21 +83,21 @@
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
         NSURLSessionTask *task = [session downloadTaskWithRequest:request
-                                                completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
-                                                    if (!error) {
-                                                        if ([request.URL isEqual:self.imageURL]) {
-                                                            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localfile]];
-                                                            dispatch_async(dispatch_get_main_queue(), ^{ self.image = image; });
-                                                        }
-                                                    }
-                                                }];
+            completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
+                if (!error) {
+                    if ([request.URL isEqual:self.imageURL]) {
+                        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localfile]];
+                        dispatch_async(dispatch_get_main_queue(), ^{ self.image = image; });
+                    }
+                }
+            }];
         [task resume];
     }
 }
 
 #pragma mark Outlets
 
-- (void)setScrollView:(UIScrollView *)scrollView { // 2
+- (void)setScrollView:(UIScrollView *)scrollView {
     _scrollView = scrollView;
     self.scrollView.delegate = self;
     self.scrollView.minimumZoomScale = 0.2;

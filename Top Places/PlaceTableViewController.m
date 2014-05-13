@@ -33,19 +33,19 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
-                                                    completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
-                                                        if (!error) {
-                                                            if ([request.URL isEqual:url]) {
-                                                                NSData *data = [NSData dataWithContentsOfURL:localfile];
-                                                                NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                                                                NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    self.photos = photos;
-                                                                });
-                                                            }
-                                                        }
-                                                    }];
+        completionHandler:^(NSURL *localfile, NSURLResponse *response, NSError *error) {
+            if (!error) {
+                if ([request.URL isEqual:url]) {
+                    NSData *data = [NSData dataWithContentsOfURL:localfile];
+                    NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                    NSArray *photos = [results valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.photos = photos;
+                    });
+                }
+            }
+        }];
     [task resume];
 }
 
