@@ -14,7 +14,6 @@
 #import "RecentsTableViewController.h"
 
 @interface PhotoListTableViewController ()
-//@property (nonatomic, strong) NSURL *imageURL;
 @end
 
 @implementation PhotoListTableViewController
@@ -25,13 +24,6 @@
     [refreshControl addTarget:self action:@selector(refreshTable:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
 }
-
-/*- (NSURL *)imageURL {
-    if (!_imageURL) {
-        _imageURL = [[NSURL alloc] init];
-    }
-    return _imageURL;
-}*/
 
 - (void)setPhotos:(NSArray *)photos {
     _photos = photos;
