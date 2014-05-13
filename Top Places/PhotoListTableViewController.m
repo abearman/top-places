@@ -34,6 +34,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     id detail = self.splitViewController.viewControllers[1]; // Gets the detail ViewController. Will be nil if we're on an iPhone.
+    if ([detail isKindOfClass:[UINavigationController class]]) {
+        detail = [((UINavigationController *)detail).viewControllers firstObject];
+    }
+    
     if ([detail isKindOfClass:[PhotoViewController class]]) {
         [self preparePhotoViewcontroller:detail toDisplayPhoto:self.photos[indexPath.row]];
     }

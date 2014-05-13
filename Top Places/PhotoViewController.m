@@ -58,8 +58,9 @@
 }
 
 - (void)setImage:(UIImage *)image {
+    self.scrollView.zoomScale = 1.0;
     self.imageView.image = image;
-    self.imageView.frame = (CGRect){.origin=CGPointMake(0.0f, 0.0f), .size=self.image.size};
+    self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
 }
 
 #pragma mark Public API
