@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar Controller - Top Places-->
         <scene sceneID="l4J-K1-GhE">
             <objects>
-                <tabBarController definesPresentationContext="YES" id="eVp-01-pa7" sceneMemberID="viewController">
+                <tabBarController title="Top Places" definesPresentationContext="YES" id="eVp-01-pa7" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="mYp-We-Lv4"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="I6K-RA-E03">
@@ -27,7 +27,7 @@
         <!--Navigation Controller - Top Places-->
         <scene sceneID="lxQ-rv-8I3">
             <objects>
-                <navigationController definesPresentationContext="YES" id="wP3-Ap-JDO" sceneMemberID="viewController">
+                <navigationController title="Top Places" definesPresentationContext="YES" id="wP3-Ap-JDO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Top Places" id="T4V-bC-eqL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QQa-Q6-CQC">
                         <autoresizingMask key="autoresizingMask"/>
@@ -196,7 +196,7 @@
         <!--Navigation Controller - Recents-->
         <scene sceneID="eAV-Vw-zYO">
             <objects>
-                <navigationController definesPresentationContext="YES" id="f7T-cf-1Df" sceneMemberID="viewController">
+                <navigationController title="Recents" definesPresentationContext="YES" id="f7T-cf-1Df" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recents" id="yJU-aF-nh1"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xsT-bg-itz">
                         <autoresizingMask key="autoresizingMask"/>
