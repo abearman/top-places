@@ -29,6 +29,7 @@
 }
 
 - (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    self.imageView.frame = CGRectMake(0, 0, self.imageView.frame.size.width, self.imageView.frame.size.height);
     [UIImageView animateWithDuration:0.8 animations:^{
         [self scaleImageToScrollView];
     }];
